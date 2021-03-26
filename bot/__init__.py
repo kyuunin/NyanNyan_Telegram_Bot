@@ -5,7 +5,7 @@ log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(
     format=log_format,
     level=0,
-    filename="../logs/%s.log"%timestamp,
+    filename="logs/%s.log"%timestamp,
 )
 console = logging.StreamHandler()
 console.setLevel(logging.INFO)
@@ -16,5 +16,3 @@ logger = logging.getLogger(__name__)
 logger.debug("start")
 logger.info("start")
 logger.warning("start")
-from bot.demo import server
-server.start()

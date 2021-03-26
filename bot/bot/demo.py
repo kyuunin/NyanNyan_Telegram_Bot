@@ -5,7 +5,7 @@ from .server import Server,Conversation
 from .data import Data, mention
 
 
-with open("../TOKEN", "r") as f:
+with open("TOKEN", "r") as f:
     server = Server(token=f.readline()[:-1], use_context=True)
 conv = server.conversation( per_user=False)
 
