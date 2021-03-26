@@ -1,9 +1,8 @@
 import logging
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-from server import Server,Conversation
-from data import Data, mention
+from .server import Server,Conversation
+from .data import Data, mention
 
 
 with open("../TOKEN", "r") as f:
@@ -46,5 +45,3 @@ def end(update, context):
     data.players.clear()
     data.reply_text("end Game")
     return -1
-    
-server.start()

@@ -110,7 +110,7 @@ class Server(HandlerList):
         self.convs = []
         @self.command("help", description="Shows help")
         def help(update, context):
-            from data import Data
+            from .data import Data
             data = Data(update, context)
             data.reply_text("\n".join(f"/{com.command} - {com.description}" for com in self.commands))
     def __lshift__(self,handler):
