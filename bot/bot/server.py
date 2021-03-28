@@ -122,7 +122,11 @@ class Server(HandlerList):
                 handler,group = handler
         self.updater.dispatcher.add_handler(handler,group)
     def error(self,callback=None,**kwargs):
-        return app(lambda x: self.updater.dispatcher.add_error_handler(x,**kwargs))(callback)
+        @app
+        def inner(x):
+            self.updater.dispatcher.add_error_handler(x,**kwargs)
+            return x
+        return inner(callback)
     def start(self):
         conv_iter(self,self.commands)
         self.updater.dispatcher.bot.set_my_commands(self.commands)

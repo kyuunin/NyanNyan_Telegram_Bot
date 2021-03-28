@@ -1,3 +1,2 @@
-import log_config
-from bot.demo import server
+from .bot.bot import server
 server.start()
