@@ -2,6 +2,7 @@ import logging
 logger = logging.getLogger(__name__)
 from traceback import format_exception
 from ..utils.messages import messages
+from ..utils.exceptions import UnknownLang
 
 def mention(user):
     return user.mention_markdown_v2(user.name)
@@ -10,8 +11,9 @@ class Data:
     def __init__(self,update, context):
         self.update=update
         self.context=context
-        if "open" not in context.chat_data:
+        if not len(context.chat_data):
             self.open = True
+            self.lang = "en"
             
     def reply(self, message, **kwargs):
         self.update.effective_message.reply_markdown_v2(message,**kwargs)
@@ -21,12 +23,20 @@ class Data:
         
     @property
     def lang(self):
-        return "en"
+        return self.context.chat_data["lang"]
+        
+    @lang.setter
+    def lang(self, val):
+        if val not in messages:
+            raise UnknownLang
+        self.context.chat_data["lang"] = val   
         
     def message_text(self, val):
         return messages[self.lang][val] % self.info
         
     def message_md(self, val):
+        if val in messages[self.lang]["md"]:
+            return messages[self.lang]["md"][val] % self.info_md
         return messages[self.lang][val] % self.info_md
         
     @property

@@ -73,22 +73,34 @@ def end(update, context):
     data.reply(data.message_md("end"))
     return -1
     
+   
+def assert_admin(data):
+    if data.user.id not in data.admins:
+        raise NotEnoughRights
+def lang_command(lang, **kwargs):
+    def fun(update, context):
+        data = Data(update, context)
+        assert_admin(data)
+        data.lang = lang
+        logger.info(data.message_text("lang"))
+        data.reply(data.message_md("lang"))
+    return server.command(lang, fun, **kwargs)
+    
+for lang in messages:
+    lang_command(lang, description=messages[lang]["lang_help"], filters=_filter)
+    
 @server.command("open", description="Allow player to Join running Games", filters=_filter)    
 def open(update, context):
     data = Data(update, context)
-    if data.user.id in data.admins:
-        data.open = True
-        logger.info(data.message_text("open"))
-        data.reply(data.message_md("open"))
-    else:
-        raise NotEnoughRights
+    assert_admin(data)
+    data.open = True
+    logger.info(data.message_text("open"))
+    data.reply(data.message_md("open"))
         
 @server.command("close", description="Disallow player to Join running Games", filters=_filter)    
 def close(update, context):
     data = Data(update, context)
-    if data.user.id in data.admins:
-        data.open = False
-        logger.info(data.message_text("close"))
-        data.reply(data.message_md("close"))
-    else:
-        raise NotEnoughRights
+    assert_admin(data)
+    data.open = False
+    logger.info(data.message_text("close"))
+    data.reply(data.message_md("close"))
