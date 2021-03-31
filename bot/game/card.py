@@ -15,6 +15,8 @@ class Card:
             return self.name
         def __eq__(self,other):
             return type(self)==type(other)
+        def __hash__(self):
+            return -1
             
     Joker = Joker()
     @staticmethod
@@ -52,4 +54,6 @@ class Card:
         return colors[self.suit_value]+self.name+'\033[0m'
     def __eq__(self,other):
         return type(self)==type(other) and self.id == other.id
+    def __hash__(self):
+        return self.id
 cards = [Card(i) for i in range(55)]
