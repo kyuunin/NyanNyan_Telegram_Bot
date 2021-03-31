@@ -5,16 +5,15 @@ from telegram.ext.filters import Filters
 from .server import Server
 from .data import Data, mention
 from ..game import Game, Player
-from ..utils.exceptions import *
-from ..utils.messages import messages
+from ..utils import messages, exceptions as ex
     
 with open("TOKEN", "r") as f:
-    server = Server(token=f.readline()[:-1], use_context=True)
-conv = server.conversation( per_user=False)
+    bot = Server(token=f.readline()[:-1], use_context=True)
+conv = bot.conversation( per_user=False)
 
 _filter = Filters.chat_type.groups & Filters.update.message
 
-@server.error
+@bot.error
 def error(update, context):
     data = Data(update, context)
     if data.error in messages[data.lang]:
@@ -24,7 +23,7 @@ def error(update, context):
         logger.error(data.pretty_error)
         data.reply(data.message_md("error"))
         
-@server.command("error", filters=Filters.update.message)
+@bot.command("error", filters=Filters.update.message)
 def error(update, context):
     raise RuntimeError
 
@@ -48,7 +47,7 @@ def _(update, context):
     data = Data(update, context)
     if data.open:
         return join(update, context)
-    raise GameAlreadyStarted
+    raise ex.GameAlreadyStarted
     
 @conv.waiting.command("leave", description="Leave game", filters=_filter)
 @conv.running.command("leave", filters=_filter)
@@ -84,12 +83,12 @@ def lang_command(lang, **kwargs):
         data.lang = lang
         logger.info(data.message_text("lang"))
         data.reply(data.message_md("lang"))
-    return server.command(lang, fun, **kwargs)
+    return bot.command(lang, fun, **kwargs)
     
 for lang in messages:
     lang_command(lang, description=messages[lang]["lang_help"], filters=_filter)
     
-@server.command("open", description="Allow player to Join running Games", filters=_filter)    
+@bot.command("open", description="Allow player to Join running Games", filters=_filter)    
 def open(update, context):
     data = Data(update, context)
     assert_admin(data)
@@ -97,7 +96,7 @@ def open(update, context):
     logger.info(data.message_text("open"))
     data.reply(data.message_md("open"))
         
-@server.command("close", description="Disallow player to Join running Games", filters=_filter)    
+@bot.command("close", description="Disallow player to Join running Games", filters=_filter)    
 def close(update, context):
     data = Data(update, context)
     assert_admin(data)

@@ -1,8 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 from traceback import format_exception
-from ..utils.messages import messages
-from ..utils.exceptions import UnknownLang
+from ..utils import messages, exceptions as ex
 
 def mention(user):
     return user.mention_markdown_v2(user.name)
@@ -28,7 +27,7 @@ class Data:
     @lang.setter
     def lang(self, val):
         if val not in messages:
-            raise UnknownLang
+            raise ex.UnknownLang
         self.context.chat_data["lang"] = val   
         
     def message_text(self, val):

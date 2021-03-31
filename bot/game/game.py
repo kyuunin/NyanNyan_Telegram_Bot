@@ -1,14 +1,22 @@
 import logging
 logger = logging.getLogger(__name__)
 
+from ..utils import RotDict, exceptions as ex
 from .player import Player
-from ..utils.rotdict import RotDict
-from ..utils.exceptions import AlreadyJoinedException, PlayerNotFoundException
+from .card import Card
+from .state import NoState
 
 class Game:
     def __init__(self):
         self.players = RotDict()
         self.order = True
+        self.top_card = None
+        while not self.top_card:
+            self.top_card = Card.draw(1)[0].place()
+        self._deck = None
+        self.multiplier = 1
+        self.turns = 1
+        self.state = NoState
         
     def player(self,player):
         try:
@@ -17,8 +25,14 @@ class Game:
             return self.players[player]
         except:
             pass
-        raise PlayerNotFoundException
-     
+        raise ex.PlayerNotFound
+    @property
+    def deck(self):
+        return self._deck
+    @deck.setter
+    def deck(self,val):
+        self.deck = val
+        self.top_card = val.draw(1)
     @property
     def active_player(self):
         return self.players.val
@@ -37,7 +51,7 @@ class Game:
                 
     def join(self,player):
         if player.id in self.players:
-            raise AlreadyJoinedException
+            raise ex.AlreadyJoined
         self.players[player.id] = player
         
     def leave(self,player):

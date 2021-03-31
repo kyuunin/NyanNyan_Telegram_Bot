@@ -1,6 +1,3 @@
-import logging
-logger = logging.getLogger(__name__)
-
 class Node:
     def __init__(self,key,val,next,prev):
         self.key=key

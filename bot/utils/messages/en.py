@@ -1,7 +1,7 @@
 from ..exceptions import *
 messages = {
-    AlreadyJoinedException: "%(user)s already joined",
-    PlayerNotFoundException: "%(user)s didn't join",
+    AlreadyJoined: "%(user)s already joined",
+    PlayerNotFound: "%(user)s didn't join",
     NotEnoughRights: "you don't have enough rights",
     GameAlreadyStarted: "Game already started",
     UnknownLang: "Unknown Language",

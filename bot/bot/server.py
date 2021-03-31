@@ -1,7 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 
-from telegram.ext import Updater,CommandHandler,InlineQueryHandler,MessageHandler,PollHandler,PollAnswerHandler, ConversationHandler, CallbackQueryHandler
+from telegram.ext import *
 from telegram import BotCommand
 from collections import defaultdict
 
