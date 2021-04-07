@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="63mm"
+   height="88mm"
+   viewBox="0 0 63 88"
+   version="1.1"
+   id="svg8">
+  <style
+     id="style2"><![CDATA[
+      rect {
+        fill:#ffffff;
+        stroke:#000000;
+        stroke-width:4.89055061;
+      }
+      text {
+        font-size:10.58333397px;
+        font-family:monospace;
+        fill:#ffffff;
+      }
+      path {
+        fill:#0000ff;
+        stroke:#000000;
+        stroke-width:0.28301516;
+       }
+    ]]></style>
+  <g
+     id="layer1"
+     transform="translate(0,-209)">
+    <rect
+       id="rect25"
+       width="58.109447"
+       height="83.109451"
+       x="2.4452753"
+       y="211.44527"
+       rx="0.25453326"
+       ry="0.23491417" />
+  </g>
+  <g
+     id="g827"
+     transform="translate(0.46040657,-9.5150692)">
+    <path
+       transform="matrix(0.9332311,0.05619571,-0.05620154,0.93313438,3.2014941,7.4328035)"
+       d="M 49.41697,64.365797 32.957092,56.805637 17.397859,66.07892 19.501616,48.088429 5.8741323,36.15632 23.634203,32.597745 l 7.136986,-16.647732 8.87257,15.791171 18.038383,1.643245 -12.276521,13.318055 z"
+       id="path818"/>
+    <text
+       id="text822"
+       y="49.018913"
+       x="15.346886">Joker</text>
+  </g>
+</svg>

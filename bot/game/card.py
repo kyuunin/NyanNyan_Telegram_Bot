@@ -1,9 +1,23 @@
 from random import choices
+from abc import ABC
 colors = ['\033[33m', '\033[31m', '\033[32m', '\033[34m']
 suits = ['♦','♥','♣','♠']
 ranks = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
-class Card:
-    class Joker:
+class Ranks(ABC):
+    pass
+for i,x in enumerate(ranks):
+    setattr(Ranks, f"_{x}", i)
+class BaseCard(ABC):
+    def can_play(self,other):
+        pass
+    @property
+    def name(self):
+        pass
+    def place(self):
+        pass
+
+class Card(BaseCard):
+    class Joker(BaseCard):
         def can_play(self,other):
             return True
         @property
