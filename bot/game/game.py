@@ -58,21 +58,20 @@ class Game:
     
     def playable_cards(self, player):
         hand = self.hand(player)
-        return [(card, self.rule.can_play(card,self)) for card in hand]
+        return [(card, self.rule.can_play(card,self,player)) for card in hand]
         
     def play_card(self, player, card_id):
         player = self.player(player)
         hand = self.hand(player)
-        if not self.rule.can_play(hand[card_id],self):
+        if not self.rule.can_play(hand[card_id],self,player):
             raise RuntimeError #custom error
-        self.rule.play_card(hand, card_id, self)
+        self.rule.play_card(hand, card_id, self, player)
         if len(hand)==1:
             self.event(Nyan(player))
         if len(hand)==0:
             self.leave(player)
             self.event(NyanNyan(player))
-        
-        
+       
     def end_turn(self):
         if self.turns == 1:
             player = self.next().val
@@ -81,8 +80,6 @@ class Game:
                 player = self.next().val
         else:
             self.turns -= 1
-                
-        
     
     def mod_players(self,fun,start=0,end=None):
         start = None if start is None else start if self.order else -start

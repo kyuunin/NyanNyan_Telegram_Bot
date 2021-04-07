@@ -1,4 +1,5 @@
 from bot.game import *
+from bot.game.state import Answer
 from bot.game.card import Card, cards
 from traceback import print_exc
 from sys import argv
@@ -30,11 +31,15 @@ states = {p:None for p in game.players.values()}
 print(states)
 while True:
     try:
-        states[game.active_player] = None
-        playable_cards = game.playable_cards(game.active_player)
-        actions = game.actions(game.active_player)
+        if game.state == Answer:
+            for player in game.answers: break
+        else:
+            player = game.active_player
+        states[player] = None
+        playable_cards = game.playable_cards(player)
+        actions = game.actions(player)
         print(turn_start%{
-            "player": game.active_player,
+            "player": player,
             "turns": game.turns,
         })
         select = int(input(turn_info%{
@@ -49,7 +54,7 @@ while True:
             print("\n".join(f"{i:2}: {c}" for i,c in card_dict.items()))
             select = int(input())
             if select in card_dict:
-                game.play_card(game.active_player,select)
+                game.play_card(player,select)
                 info()
             else:
                 info("Card not Playable")
@@ -58,7 +63,7 @@ while True:
             print("\n".join(f"{i:2}: {a}" for i,a in enumerate(actions)))
             action = actions[int(input())]
             print(f"{action} selected")
-            options = action.options(game.active_player, game)
+            options = action.options(player, game)
             if len(options):
                 print("select option")
                 print("\n".join(f"{i:2}: {o}" for i,o in enumerate(options)))
@@ -66,7 +71,7 @@ while True:
                 print(f"{option} selected")
             else:
                 option = None
-            game.do(game.active_player,action,option)
+            game.do(player,action,option)
             info()
             
                 
