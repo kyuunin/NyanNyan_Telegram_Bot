@@ -64,8 +64,17 @@ class Card(BaseCard):
     @property
     def suit(self):
         return suits[self.suit_value]
-    def __repr__(self):
+    @classmethod
+    def color(cls,on):
+        if on:
+            cls.__repr__ = cls.__repr_color__
+        else:
+            cls.__repr__ = cls.__repr_no_color__
+    def __repr_color__(self):
         return colors[self.suit_value]+self.name+'\033[0m'
+    def __repr_no_color__(self):
+        return self.name
+    __repr__ = __repr_color__
     def __eq__(self,other):
         return type(self)==type(other) and self.id == other.id
     def __hash__(self):

@@ -1,5 +1,5 @@
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("game")
 
 from ..utils import RotDict, exceptions as ex
 from .player import Player
@@ -67,10 +67,10 @@ class Game:
             raise RuntimeError #custom error
         self.rule.play_card(hand, card_id, self, player)
         if len(hand)==1:
-            self.event(Nyan(player))
+            self.event(self,Nyan(player))
         if len(hand)==0:
             self.leave(player)
-            self.event(NyanNyan(player))
+            self.event(self,NyanNyan(player))
        
     def end_turn(self):
         if self.turns == 1:
@@ -78,6 +78,7 @@ class Game:
             while player.skips != 0:
                 player.skips -= 1
                 player = self.next().val
+            self.event(self,StartTurn(player))
         else:
             self.turns -= 1
     
@@ -96,7 +97,9 @@ class Game:
                 
     def join(self,player):
         if player.id in self.players:
+            logger.info(f"{player} already joined")
             raise ex.AlreadyJoined
+        logger.info(f"{player} joined with hand {player.hand}")
         self.players[player.id] = player
         
     def leave(self,player):

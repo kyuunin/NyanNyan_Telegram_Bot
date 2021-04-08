@@ -1,6 +1,7 @@
 import logging
 logger = logging.getLogger(__name__)
 from traceback import format_exception
+from ..game import rules,event
 from ..utils import messages, exceptions as ex
 
 def mention(user):
@@ -13,13 +14,22 @@ class Data:
         if not len(context.chat_data):
             self.open = True
             self.lang = "en"
+            self._rule = rules["NyanNyan"]
+            self.event_handler = event.EventHandler()
             
     def reply(self, message, **kwargs):
         self.update.effective_message.reply_markdown_v2(message,**kwargs)
         
     def reply_text(self, message, **kwargs):
         self.update.effective_message.reply_text(message,**kwargs)
-        
+    
+    @property
+    def rule(self):
+        return self._rule
+    @rule.setter
+    def rule(self, val):
+        self._rule = rules["rule"]
+    
     @property
     def lang(self):
         return self.context.chat_data["lang"]

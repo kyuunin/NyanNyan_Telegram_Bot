@@ -1,0 +1,15 @@
+#!/bin/bash
+log=$(ls -t logs | head -1)
+while getopts ch: flag
+do
+    case "${flag}" in
+        c) cat "logs/$log";;
+        h) html=$OPTARG;;
+    esac
+done
+if [ -z $html ]
+    then
+        echo "hi"
+    else
+        cat "logs/$log" | aha --black > html/$html
+fi

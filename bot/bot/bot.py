@@ -31,7 +31,7 @@ def error(update, context):
 @conv.entry_point.command("new", description="Create new Game", filters=_filter)
 def new(update, context):
     data = Data(update, context)
-    data.game = Game()
+    data.game = Game(data.rule,data.event_handler)
     logger.info(data.message_text("new"))
     data.reply(data.message_md("new"))
     return "waiting"
@@ -39,7 +39,7 @@ def new(update, context):
 @conv.waiting.command("join", description="Join game", filters=_filter)
 def join(update, context):
     data = Data(update, context)
-    data.game.join(Player(data.user.id, data.user.name))
+    data.game.join(Player(data.user.id, data.user.name,7))
     logger.info(data.message_text("join"))
     data.reply(data.message_md("join"))
 @conv.running.command("join", filters=_filter)
