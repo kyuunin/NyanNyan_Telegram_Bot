@@ -8,17 +8,13 @@ messages = {
     "lang": "language set to English",
     "lang_help": "set language to English",
     "error": "Internal Error",
-    "new": "New game was created",
+    "waiting": "Players:\n%(players)s",
+    "new": "New game created",
+    "running": "Game is running\n%(state)s\nPlayers:\n%(players)s",
     "join": "%(user)s joined",
     "leave": "%(user)s left",
     "start": "start Game",
     "end": "end Game",
     "open": "Game is now open",
     "close": "Game is now closed",
-    "md": {
-        "new": 
-            "New game was created\n"+
-            "Players can enter with /join\n"+
-            "When everyone is ready to play use /start",
-    }
 }

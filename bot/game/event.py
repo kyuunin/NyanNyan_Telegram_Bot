@@ -17,6 +17,6 @@ class EventHandler:
             return fun
         return inner if fun is None else inner(fun)
     def __call__(self, game, event):
-        self.events[type(event)](game,event)
+        self.events[type(event)](self,game,event)
         
 

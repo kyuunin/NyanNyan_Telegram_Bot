@@ -18,6 +18,8 @@ class BaseCard(ABC):
 
 class Card(BaseCard):
     class Joker(BaseCard):
+        def __init__(self,id):
+            self.id = id
         def can_play(self,other):
             return True
         @property
@@ -32,13 +34,19 @@ class Card(BaseCard):
         def __hash__(self):
             return -1
             
-    Joker = Joker()
+    Joker53 = Joker(53)
+    Joker54 = Joker(54)
+    Joker = Joker(52)
     @staticmethod
     def draw(k=1):
         return choices(cards,k=k)
     def __new__(cls, id):
-        if id >= 52:
+        if id == 52:
             return cls.Joker
+        if id == 53:
+            return cls.Joker53
+        if id == 54:
+            return cls.Joker54
         return object.__new__(cls)
 
     def __init__(self, id):

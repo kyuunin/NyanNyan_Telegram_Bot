@@ -57,7 +57,9 @@ class Game:
         
     
     def playable_cards(self, player):
+        player = self.player(player)
         hand = self.hand(player)
+        logger.debug(hand) #TODO change to debug
         return [(card, self.rule.can_play(card,self,player)) for card in hand]
         
     def play_card(self, player, card_id):

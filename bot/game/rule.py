@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger("rule")
+
 from .card import Card,Ranks
 from .state import *
 

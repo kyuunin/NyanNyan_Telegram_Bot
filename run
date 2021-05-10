@@ -1,2 +1,2 @@
-#!/bin/sh
-python3 -m bot
+#!/bin/bash
+python3 -W ignore -m bot |& tee >(nc seashells.io 1337 | grep --line-buffered -Eo 'https://.+' > url)

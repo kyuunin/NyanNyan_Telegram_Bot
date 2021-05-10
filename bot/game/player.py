@@ -9,3 +9,5 @@ class Player:
         self.hand += Card.draw(n)
     def __repr__(self):
         return self.name
+    def __eq__(self,other):
+        return self.id==other.id

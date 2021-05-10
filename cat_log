@@ -9,7 +9,7 @@ do
 done
 if [ -z $html ]
     then
-        echo "hi"
+        echo
     else
         cat "logs/$log" | aha --black > html/$html
 fi
