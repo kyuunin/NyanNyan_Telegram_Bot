@@ -96,7 +96,7 @@ def play(data):
                     id=i, 
                     sticker_file_id=data.sticker(card_id).file_id,
                 ) for i,card_id in enumerate(cards)
-            ],
+            ], #TODO add actions
             cache_time=0
         )
     else:
@@ -110,6 +110,7 @@ def check_message(data):
 def choose_action(data):
     if data.chat_id == data.via and conv.check((data.chat_id,),"running") and data.user.id in data.game.players:
         logger.info(data.update)
+        #TODO handle actions
         data.game.play_card(data.user.id, int(data.result_id))
         data.reply_text("success")
     else:
